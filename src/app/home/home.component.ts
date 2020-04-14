@@ -12,16 +12,7 @@ export class HomeComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
-    console.log(this.auth.isLoggedIn());
-    if (!this.auth.isLoggedIn()) {
-      this.router.navigate(['/login']);
-    }
   }
 
-  public logout(): void {
-    this.auth.logout();
-    this.router.navigate(['/login']);
-    console.log("Logged out!");
-  }
 
 }

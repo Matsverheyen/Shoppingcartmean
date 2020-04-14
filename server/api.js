@@ -1,8 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 require('./models/users');
+require('./models/items');
 const helmet = require('helmet');
 var User = mongoose.model('User');
+var Item = mongoose.model('Item');
 var cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -84,6 +86,70 @@ app.get('/api/profile', (req, res) => {
         res.status(200).json(user);
       })
   }
+})
+
+app.post('/api/product', (req, res) => {
+  var item = new Item({
+    'title': req.body.title,
+    'description': req.body.description,
+    'category': req.body.category,
+    'img': req.body.img,
+    'price': req.body.price
+  })
+
+  item.save((err) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(item)
+    }
+  })
+})
+
+app.get('/api/products', (req, res) => {
+  Item.find({}, (err, data) => {
+    if (err) {
+      res.status(400).json(err)
+    } else {
+      res.json(data);
+    }
+  })
+})
+
+app.get('/api/products/:category', (req, res) => {
+  Item.find({
+    'category': req.params.category
+  }, (err, data) => {
+    if (err) {
+      res.status(400).json(err)
+    } else {
+      res.json(data);
+    }
+  })
+})
+
+app.get('/api/product/:id', (req, res) => {
+  Item.find({
+    '_id': req.params.id
+  }, (err, data) => {
+    if (err) {
+      res.status(400).json(err)
+    } else {
+      res.json(data);
+    }
+  })
+})
+
+app.delete('/api/product/:id', (req, res) => {
+  Item.deleteOne({
+    '_id': req.params.id
+  }, (err, data) => {
+    if (err) {
+      res.status(400).json(err)
+    } else {
+      res.json(data);
+    }
+  })
 })
 
 app.listen(process.env.PORT || 8000, () => {

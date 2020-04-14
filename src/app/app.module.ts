@@ -9,13 +9,17 @@ import { RegisterComponent } from './auth/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ItemComponent } from './item/item.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    ItemComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,41 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" routerLink='/'>
+        Home
+      </a>
+      <a class="navbar-item" routerLink='/Computers'>
+        Computers
+      </a>
+      <a class="navbar-item" routerLink='/Monitors'>
+        Monitors
+      </a>
+      <a class="navbar-item" routerLink='/Consoles'>
+        Consoles
+      </a>
+      <a class="navbar-item" routerLink='/Games'>
+        Games
+      </a>
+      <a class="navbar-item" routerLink='/Accesoires'>
+        Accesoires
+      </a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a *ngIf="isLogged" class="button is-light" (click)="logout()">
+            Logout
+          </a>
+          <a *ngIf="!isLogged" class="button is-light" routerLink="register">
+            Register
+          </a>
+          <a *ngIf="!isLogged" class="button is-light" routerLink="login">
+            Login
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

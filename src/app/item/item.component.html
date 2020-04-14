@@ -1,0 +1,22 @@
+<app-navbar></app-navbar>
+<div class="hero is-primary is-fullheight">
+<div class="row columns custom-row">
+  <div *ngFor="let item of items" class="column is-one-third">
+    <div class="card large">
+      <div class="card-content">
+        <div class="media custom">
+          <img [src]="item.img" alt="Image">
+          <div class="media-content">
+            <p class="title is-4 no-padding">{{item.title}}</p>
+            <p class="price">{{item.price | currency:'EUR' }}</p>
+          </div>
+        </div>
+        <div class="content">
+          {{item.description}}
+        </div>
+      </div>
+    </div>
+  </div >
+</div>
+
+</div>
