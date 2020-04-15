@@ -19,7 +19,6 @@ export class RegisterComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
-    console.log(this.auth.isLoggedIn());
     if (this.auth.isLoggedIn()) {
       this.router.navigate(['']);
     }
@@ -27,7 +26,6 @@ export class RegisterComponent implements OnInit {
 
   public register(): void {
     this.auth.register(this.credentials).subscribe(() => {
-      console.log('ts')
       this.router.navigate(['/login']);
     }, (err) => {
       console.log(err);

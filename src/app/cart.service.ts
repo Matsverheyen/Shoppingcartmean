@@ -28,7 +28,10 @@ export class CartService {
   }
 
   public removeFromCart(id): void {
-    //Deze nog maken
+    this.items = JSON.parse(localStorage.cart);
+    let index: number = this.items.map((item) => {return item._id}).indexOf(id);
+    this.items.splice(index, 1);
+    this.updateCart();
   }
 
   public updateQty(id: string, amount: number): void {

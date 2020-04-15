@@ -57,7 +57,6 @@ export class AuthService {
     let base;
 
     if (method === 'post') {
-      console.log(`${this.apiUrl}/api/${type}`, user);
       base = this.http.post(`${this.apiUrl}/api/${type}`, user);
     } else {
       base = this.http.get(`${this.apiUrl}/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` } });
@@ -75,7 +74,6 @@ export class AuthService {
   }
 
   public register(user: TokenPayload): Observable<any> {
-    console.log(`${this.apiUrl}/api/register`, user)
     return this.http.post(`${this.apiUrl}/api/register`, user);
   }
 
