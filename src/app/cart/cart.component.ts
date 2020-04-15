@@ -10,6 +10,8 @@ import { CartService } from '../cart.service';
 })
 export class CartComponent implements OnInit {
   public cartItems: any;
+  public totalprice: number[] = [];
+  public total: number;
 
   constructor(private auth: AuthService, private router: Router, private cart: CartService) { }
 
@@ -17,12 +19,32 @@ export class CartComponent implements OnInit {
     if (!this.auth.isLoggedIn()) {
       this.router.navigate(['/login']);
     }
-    console.log(this.cart.getCartItems());
-    this.cartItems = this.cart.getCartItems();
+    this.updateCart();
   }
 
   public removeFromCart(id): void {
-    
+    this.cart.removeFromCart(id);
+    this.updateCart();
+  }
+
+  private updateCart(): void {
+    this.cartItems = this.cart.getCartItems();
+  }
+
+  public onSearchChange(value: number, id: string): void {
+    if (value == 0) {
+      this.removeFromCart(id);
+    } else {
+      this.cart.updateQty(id, value);
+    }
+    this.getTotal();
+  }
+
+  public getTotal(): any {
+    JSON.parse(localStorage.cart).forEach(el => {
+      this.totalprice.push(el.qty * el.price)
+      this.total = this.totalprice.reduce((a, b) => a + b, 0);
+    });
   }
 
 }

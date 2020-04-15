@@ -3,6 +3,14 @@
   background: #fafafa;
 }
 
+.btn-teal {
+  background-color: #00d1b2;
+}
+
+.btn-teal:hover {
+  background-color: #009c84;
+}
+
 .social-link {
   width: 30px;
   height: 30px;

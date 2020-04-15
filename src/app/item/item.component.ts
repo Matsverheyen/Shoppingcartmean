@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { getFirstTemplatePass } from '@angular/core/src/render3/state';
 import { HttpClient } from '@angular/common/http';
 import { ItemService } from '../item.service';
@@ -15,7 +15,7 @@ export class ItemComponent implements OnInit {
   public items;
   public category: string = "";
 
-  constructor(private route: ActivatedRoute, private _item: ItemService, private cart: CartService) { }
+  constructor(private route: ActivatedRoute, private _item: ItemService, private cart: CartService, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -27,7 +27,9 @@ export class ItemComponent implements OnInit {
   private getItems(cat): void {
     this._item.getItemsByCategory(cat).subscribe(data => {
       this.items = data;
-      console.log(this.items);
+      if (this.items.length == 0) {
+        this.router.navigate(['/']);
+      }
     })
   }
 

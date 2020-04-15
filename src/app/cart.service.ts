@@ -28,24 +28,11 @@ export class CartService {
   }
 
   public removeFromCart(id): void {
-    let index = this.items.findIndex(x => x._id === id);
-    if (index > -1) {
-      this.items.splice(index, 1);
-      this.updateCart();
-    }
+    //Deze nog maken
   }
 
-  public removeQty(id): void {
-    if (this.items.find(x => x._id === id) !== undefined) {
-      this.items.find(x => x._id === id).qty--
-    }
-    this.updateCart();
-  }
-
-  public addQty(id): void {
-    if (this.items.find(x => x._id === id) !== undefined) {
-      this.items.find(x => x._id === id).qty++
-    }
+  public updateQty(id: string, amount: number): void {
+    this.items.find(x => x._id === id).qty = amount;
     this.updateCart();
   }
 
