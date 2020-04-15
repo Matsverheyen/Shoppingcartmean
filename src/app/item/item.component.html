@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="hero is-primary is-fullheight">
+<!-- <div class="hero is-primary is-fullheight">
 <div class="row columns custom-row">
   <div *ngFor="let item of items" class="column is-one-third">
     <div class="card large">
@@ -14,9 +14,34 @@
         <div class="content">
           {{item.description}}
         </div>
+        <button class="btn" (click)="addToCart(item)">Add to cart</button>
       </div>
     </div>
   </div >
 </div>
 
+</div> -->
+
+
+<div class="bootstrap_cards2">
+  <div class="container py-5">
+    <header class="text-center mb-5">
+      <h1 class="display-4 font-weight-bold">{{category}}</h1>
+    </header>
+
+
+    <p class="font-italic text-muted mb-4">{{this.items.length}} {{getResults()}}</p>
+
+    <div class="row pb-5 mb-4">
+      <div *ngFor="let item of items" class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+        <div class="card rounded shadow-sm border-0">
+          <div class="card-body p-4"><img
+              [src]="item.img" alt="{{item.title}}"
+              class="img-fluid d-block mx-auto mb-3">
+            <h5><p class="text-dark">{{item.title}}</p></h5>
+            <p class="small text-muted font-italic">{{item.description}}</p>
+          </div>
+        </div>
+      </div>
+  </div>
 </div>

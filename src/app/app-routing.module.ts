@@ -2,14 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
-import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ItemComponent } from './item/item.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    redirectTo: 'category/Computers',
+    pathMatch: 'full'
   },
   {
     path: 'login',
@@ -20,9 +21,17 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
-    path: ':category',
+    path: 'category/:category',
     component: ItemComponent
-  }
+  },
+  {
+    path: 'cart',
+    component: CartComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/category/Computers',
+  },
 ];
 
 @NgModule({

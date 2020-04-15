@@ -1,41 +1,29 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" routerLink='/'>
-        Home
-      </a>
-      <a class="navbar-item" routerLink='/Computers'>
-        Computers
-      </a>
-      <a class="navbar-item" routerLink='/Monitors'>
-        Monitors
-      </a>
-      <a class="navbar-item" routerLink='/Consoles'>
-        Consoles
-      </a>
-      <a class="navbar-item" routerLink='/Games'>
-        Games
-      </a>
-      <a class="navbar-item" routerLink='/Accesoires'>
-        Accesoires
-      </a>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a *ngIf="isLogged" class="button is-light" (click)="logout()">
-            Logout
-          </a>
-          <a *ngIf="!isLogged" class="button is-light" routerLink="/register">
-            Register
-          </a>
-          <a *ngIf="!isLogged" class="button is-light" routerLink="/login">
-            Login
-          </a>
-        </div>
+<div>
+  <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+    <div class="container">
+      <div><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle
+            navigation</span><span class="navbar-toggler-icon"></span></button></div>
+      <div class="collapse navbar-collapse" id="navcol-1">
+        <ul class="nav navbar-nav">
+          <li class="nav-item" role="presentation"><a class="nav-link active"
+              routerLink="/category/Computers">Computers</a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link" routerLink="/category/Monitors">Monitors</a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link" routerLink="/category/Consoles">Consoles</a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link" routerLink="/category/Games">Games</a></li>
+          <li class="nav-item" role="presentation"><a class="nav-link" routerLink="/category/Accesoires">Accesoires</a>
+          </li>
+        </ul>
+        <p *ngIf="!isLogged" class="ml-auto navbar-text actions">
+          <a class="login" routerLink="/login">Log In</a>
+          <a class="btn btn-light action-button" role="button" routerLink="/register"
+            style="background-color: #00d1b2;">Sign Up</a>
+        </p>
+        <p *ngIf="isLogged" class="ml-auto navbar-text actions">
+          <a class="login" routerLink='/cart'>Cart</a>
+          <a class="btn btn-light action-button" role="button" (click)="logout()"
+            style="background-color: #00d1b2;">Logout</a>
+        </p>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>

@@ -3,20 +3,24 @@ import { ActivatedRoute } from '@angular/router';
 import { getFirstTemplatePass } from '@angular/core/src/render3/state';
 import { HttpClient } from '@angular/common/http';
 import { ItemService } from '../item.service';
+import { Item } from '../../models/item.model';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss']
+  styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
   public items;
+  public category: string = "";
 
-  constructor(private route: ActivatedRoute, private _item: ItemService) { }
+  constructor(private route: ActivatedRoute, private _item: ItemService, private cart: CartService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.getItems(params['category']);
+      this.category = params['category'];
     })
   }
 
@@ -25,6 +29,14 @@ export class ItemComponent implements OnInit {
       this.items = data;
       console.log(this.items);
     })
+  }
+
+  public addToCart(item): void {
+    this.cart.addToCart(item);
+  }
+
+  public getResults(): string {
+    return this.items.length == 1 ? 'resultaat' : 'resultaten'
   }
 
 

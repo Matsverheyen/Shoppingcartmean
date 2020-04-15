@@ -1,37 +1,19 @@
-<div class="hero is-primary is-fullheight">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-          <form (submit)="register()" class="box">
-            <div class="field">
-              <label class="label">Email</label>
-              <div class="control has-icons-left">
-                <input type="email" placeholder="Email" name="email" [(ngModel)]="credentials.email" class="input"
-                  required>
-                <span class="icon is-small is-left">
-                  <i class="fa fa-envelope"></i>
-                </span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">Password</label>
-              <div class="control has-icons-left">
-                <input [(ngModel)]="credentials.password" name="password" type="password" placeholder="*******"
-                  class="input" required>
-                <span class="icon is-small is-left">
-                  <i class="fa fa-lock"></i>
-                </span>
-              </div>
-            </div>
-            <div *ngIf="response">
-              {{response.message}}
-            </div>
-            <button type="submit" class="button is-primary is-fullwidth">Register</button>
-            <a routerLink="/login">Login</a>
-          </form>
-        </div>
+<app-navbar></app-navbar>
+<div class="login-clean" style="background-color: #00d1b2;">
+  <form (submit)="register()">
+    <h2 class="sr-only">Register Form</h2>
+    <h2 class="d-lg-flex justify-content-lg-center align-items-lg-center">Register</h2>
+    <div class="illustration"><i class="icon ion-ios-navigate" style="color: #00d1b2;"></i></div>
+    <div class="form-group"><input [(ngModel)]="credentials.email" class="form-control" type="email" name="email"
+        placeholder="Email"></div>
+    <div class="form-group"><input [(ngModel)]="credentials.password" class="form-control" type="password"
+        name="password" placeholder="Password"></div>
+    <div class="form-group"><button class="btn btn-primary btn-block" type="submit"
+        style="background-color: #00d1b2;">Register!</button>
+      <div *ngIf="response">
+        {{response.message}}
       </div>
-    </div>
-  </div>
+      </div>
+    <a routerLink="/login">Login</a>
+  </form>
 </div>
