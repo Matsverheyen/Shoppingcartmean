@@ -41,7 +41,7 @@
                     <td class="border-0 align-middle"><strong>{{item.price | currency: 'EUR'}}</strong></td>
                     <td class="border-0 align-middle"><input class="form-control" type="number"
                         (input)="onSearchChange($event.target.value, item._id)" [value]="item.qty"></td>
-                    <td class="border-0 align-middle" (click)="removeFromCart(item._id)">Delete</td>
+                    <td class="border-0 align-middle"><button class="btn btn-danger" (click)="removeFromCart(item._id)">Delete</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -71,7 +71,8 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
+            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary
+            </div>
             <div class="p-4">
               <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have
                 entered.</p>
@@ -85,8 +86,10 @@
                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
                   <h5 class="font-weight-bold">{{total | currency: 'EUR'}}</h5>
                 </li>
-              </ul><a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
+              </ul>
+              <a class="btn btn-dark rounded-pill py-2 btn-block" [href]="">Procceed to checkout</a>
             </div>
+
           </div>
         </div>
 

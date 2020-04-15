@@ -12,6 +12,7 @@ export class CartComponent implements OnInit {
   public cartItems: any;
   public totalprice: number[] = [];
   public total: number;
+  public methods: Object[];
 
   constructor(private auth: AuthService, private router: Router, private cart: CartService) { }
 
@@ -29,6 +30,7 @@ export class CartComponent implements OnInit {
 
   private updateCart(): void {
     this.cartItems = this.cart.getCartItems();
+    this.getTotal();
   }
 
   public onSearchChange(value: number, id: string): void {

@@ -12,6 +12,10 @@ require('dotenv').config({
   path: '../.env'
 });
 require('./config/passport');
+let verifyAuthToken = require('./middleware/auth');
+var {
+  createMollieClient
+} = require('@mollie/api-client');
 
 var app = express();
 
@@ -19,6 +23,10 @@ app.use(cors());
 app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(helmet());
+
+const mollieClient = createMollieClient({
+  apiKey: process.env.MOLLIE_API_KEY
+});
 
 mongoose.connect(
   process.env.MONGO_URI, {
@@ -151,6 +159,46 @@ app.delete('/api/product/:id', (req, res) => {
     }
   })
 })
+
+app.get('/api/payment/methods', function (req, res) {
+  let methods;
+  mollieClient.methods
+    .all({
+      include: 'issuers',
+      profileId: 'pfl_ajWxUWj5CC'
+    })
+    .then(data => {
+      methods = data;
+      return res.status(200).json(methods);
+    })
+    .catch(err => {
+      return res.status(500).send(err);
+    });
+});
+
+app.post('/api/payment/new', (req, res) => {
+  mollieClient.payments
+    .create({
+      amount: {
+        currency: 'EUR',
+        value: req.body.amount
+      },
+      description: req.body.description,
+      redirectUrl: `http://localhost:4200/order/`,
+      webhookUrl: 'http://51094c9c.ngrok.io/api/payment/webhook',
+    })
+    .then(payment => {
+      res.json(payment._links.checkout.href);
+    })
+    .catch(err => {
+      res.json({
+        success: false,
+        message: err
+      });
+    });
+})
+
+
 
 app.listen(process.env.PORT || 8000, () => {
   console.log(`Api started!`);
