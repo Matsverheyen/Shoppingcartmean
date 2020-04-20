@@ -16,6 +16,7 @@ let verifyAuthToken = require('./middleware/auth');
 var {
   createMollieClient
 } = require('@mollie/api-client');
+const orderid = require('order-id')(process.env.orderIDSecret);
 
 var app = express();
 
@@ -177,6 +178,8 @@ app.get('/api/payment/methods', function (req, res) {
 });
 
 app.post('/api/payment/new', (req, res) => {
+  let orderId = orderid.generate();
+  console.log(orderId);
   mollieClient.payments
     .create({
       amount: {
@@ -184,8 +187,11 @@ app.post('/api/payment/new', (req, res) => {
         value: req.body.amount
       },
       description: req.body.description,
-      redirectUrl: `http://localhost:4200/order/`,
+      redirectUrl: `http://localhost:4200/order/${orderId}`,
       webhookUrl: 'http://51094c9c.ngrok.io/api/payment/webhook',
+      metadata: {
+        orderId
+      }
     })
     .then(payment => {
       res.json(payment._links.checkout.href);

@@ -5,6 +5,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ItemComponent } from './item/item.component';
 import { CartComponent } from './cart/cart.component';
+import { OrderComponent } from './order/order.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'order/:id',
+    component: OrderComponent
   },
   {
     path: 'register',
@@ -31,7 +36,7 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: '/category/Computers',
-  },
+  }
 ];
 
 @NgModule({

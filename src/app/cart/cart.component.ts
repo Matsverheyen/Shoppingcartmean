@@ -54,9 +54,10 @@ export class CartComponent implements OnInit {
   }
 
   public checkout(): void {
+    this.getTotal();
     let info = {
       description: localStorage.cart,
-      amount: this.total.toString()
+      amount: this.total.toFixed(2).toString()
     }
     this.payment.newPayment(info).subscribe((url) => {
       window.location.href = url;
