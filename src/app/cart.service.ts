@@ -35,8 +35,13 @@ export class CartService {
   }
 
   public updateQty(id: string, amount: number): void {
-    this.items.find(x => x._id === id).qty = amount;
+    console.log('called service', id, amount);
+    console.log("items", this.getCartItems());
+    console.log('itemsFind', this.getCartItems().find(x => x._id === id).qty);
+    this.items = this.getCartItems();
+    this.items.find(x => x._id === id).qty = parseInt(amount);
     this.updateCart();
+    console.log('after', this.getCartItems());
   }
 
 
