@@ -34,7 +34,7 @@ export class CartService {
     this.updateCart();
   }
 
-  public updateQty(id: string, amount: number): void {
+  public updateQty(id: any, amount: any): void {
     this.items = this.getCartItems();
     this.items.find(x => x._id === id).qty = parseInt(amount);
     this.updateCart();
