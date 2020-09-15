@@ -8,12 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class OrderComponent implements OnInit {
   public orderId: string;
+  public userId: string;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.orderId = params['id'];
+      this.userId = params['user'];
     })
   }
 

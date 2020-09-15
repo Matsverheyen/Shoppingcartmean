@@ -1,10 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 require('./models/users');
 require('./models/items');
+require('./models/orders')
 const helmet = require('helmet');
 var User = mongoose.model('User');
 var Item = mongoose.model('Item');
+var Order = mongoose.model('Order');
 var cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -14,7 +17,8 @@ require('dotenv').config({
 require('./config/passport');
 let verifyAuthToken = require('./middleware/auth');
 var {
-  createMollieClient
+  createMollieClient,
+  OrderStatus
 } = require('@mollie/api-client');
 const orderid = require('order-id')(process.env.orderIDSecret);
 
@@ -24,6 +28,7 @@ app.use(cors());
 app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(helmet());
+
 
 const mollieClient = createMollieClient({
   apiKey: process.env.MOLLIE_API_KEY
@@ -161,6 +166,33 @@ app.delete('/api/product/:id', (req, res) => {
   })
 })
 
+app.get('/api/orders', (req, res) => {
+  Order.find({}, (err, data) => {
+    if (err) {
+      res.status(400).json(err)
+    } else {
+      res.json(data);
+    }
+  })
+})
+
+app.post('/api/order', (req, res) => {
+  console.log("orderid", req.body.orderId)
+  var order = new Order({
+    orderId: req.body.orderId,
+    user: req.body.userId,
+    items: req.body.items
+  })
+  console.log(order);
+  order.save((err) => {
+    if (err) {
+      res.json(err)
+    } else {
+      res.json(order)
+    }
+  })
+})
+
 app.get('/api/payment/methods', function (req, res) {
   let methods;
   mollieClient.methods
@@ -179,7 +211,8 @@ app.get('/api/payment/methods', function (req, res) {
 
 app.post('/api/payment/new', (req, res) => {
   let orderId = orderid.generate();
-  console.log(orderId);
+  let userId = jwt.verify(req.body.userToken, process.env.JWT_SECRET)._id;
+  console.log(userId);
   mollieClient.payments
     .create({
       amount: {
@@ -187,7 +220,7 @@ app.post('/api/payment/new', (req, res) => {
         value: req.body.amount
       },
       description: req.body.description,
-      redirectUrl: `http://localhost:4200/order/${orderId}`,
+      redirectUrl: `http://localhost:4200/order/${orderId}/${userId}`,
       webhookUrl: 'http://51094c9c.ngrok.io/api/payment/webhook',
       metadata: {
         orderId
@@ -203,7 +236,6 @@ app.post('/api/payment/new', (req, res) => {
       });
     });
 })
-
 
 
 app.listen(process.env.PORT || 8000, () => {

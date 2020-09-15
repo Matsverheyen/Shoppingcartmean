@@ -18,7 +18,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'order/:id',
+    path: 'order/:id/:user',
     component: OrderComponent
   },
   {
