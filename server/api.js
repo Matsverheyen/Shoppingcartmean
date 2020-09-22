@@ -21,6 +21,9 @@ var {
   OrderStatus
 } = require('@mollie/api-client');
 const orderid = require('order-id')(process.env.orderIDSecret);
+const {
+  ObjectId
+} = require('mongodb');
 
 var app = express();
 
@@ -166,11 +169,16 @@ app.delete('/api/product/:id', (req, res) => {
   })
 })
 
-app.get('/api/orders', (req, res) => {
-  Order.find({}, (err, data) => {
+app.post('/api/orders', (req, res) => {
+  let userId = ObjectId(jwt.verify(req.body.userToken, process.env.JWT_SECRET)._id);
+  console.log('UserId', userId);
+  Order.find({
+        user: userId
+      }, (err, data) => {
     if (err) {
       res.status(400).json(err)
     } else {
+           console.log(data);
       res.json(data);
     }
   })
