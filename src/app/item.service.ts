@@ -28,7 +28,11 @@ export class ItemService {
     return this.http.get(`${this.apiUrl}/api/product/${id}`);
   }
 
-  public addOrder(order: Order): Observable<Object> {
+  public addOrder(order: any): Observable<Object> {
     return this.http.post(`${this.apiUrl}/api/order`, order);
+  }
+
+  public getOrder(user: any): Observable<Object> {
+    return this.http.post(`${this.apiUrl}/api/orders`, user);
   }
 }
