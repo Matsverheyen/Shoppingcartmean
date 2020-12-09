@@ -6,6 +6,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ItemComponent } from './item/item.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './order/order.component';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent
+  },
+  {
+    path: 'item/:item',
+    component: ItemDetailComponent,
   },
   {
     path: '**',

@@ -11,8 +11,6 @@ var orderSchema = new mongoose.Schema({
     required: true
   },
   items: [{
-    itemId: Schema.Types.ObjectId,
-    amount: Number
   }]
 });
 

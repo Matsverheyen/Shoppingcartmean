@@ -20,13 +20,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.auth.isLoggedIn()) {
-      this.router.navigate(['']);
+      this.router.navigate(['/cart']);
     }
   }
 
   public login(): void {
     this.auth.login(this.credentials).subscribe(() => {
-      this.router.navigate(['']);
+      this.router.navigate(['/cart']);
       this.credentials.email = '';
       this.credentials.password = '';
     }, (err) => {

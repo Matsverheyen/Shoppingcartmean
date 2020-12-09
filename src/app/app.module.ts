@@ -12,6 +12,7 @@ import { ItemComponent } from './item/item.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './order/order.component';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { OrderComponent } from './order/order.component';
     ItemComponent,
     NavbarComponent,
     CartComponent,
-    OrderComponent
+    OrderComponent,
+    ItemDetailComponent
   ],
   imports: [
     BrowserModule,

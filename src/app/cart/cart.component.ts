@@ -15,14 +15,11 @@ export class CartComponent implements OnInit {
   public totalprice: number[] = [];
   public total: number;
   public methods: Object[];
-  public orderItems: any;
+  public ordersItem;
 
   constructor(private auth: AuthService, private router: Router, private cart: CartService, private payment: PaymentService, private item: ItemService) { }
 
   ngOnInit() {
-    if (!this.auth.isLoggedIn()) {
-      this.router.navigate(['/login']);
-    }
     this.updateCart();
     this.getOrders();
   }
@@ -42,9 +39,15 @@ export class CartComponent implements OnInit {
       'userToken': localStorage.getItem('access_token')
     }
     console.log('user order', user);
-    this.orderItems = this.item.getOrder(user).subscribe(data => {
+    this.item.getOrder(user).subscribe(data => {
+      this.ordersItem = data;
       console.log(data);
-    })
+      this.getOrderData(data)
+    });
+  }
+
+  public getOrderData(data): void {
+    
   }
 
   public onSearchChange(value: number, id: string): void {
@@ -59,14 +62,13 @@ export class CartComponent implements OnInit {
   }
 
   public getTotal(): any {
-    this.totalprice = [];
-    JSON.parse(localStorage.cart).forEach(el => {
-      this.totalprice.push(el.qty * el.price)
-      this.total = this.totalprice.reduce((a, b) => a + b, 0);
-    });
+    this.total = this.cart.getTotal();
   }
 
   public checkout(): void {
+    if (!this.auth.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    }
     this.getTotal();
     let info = {
       description: localStorage.cart,

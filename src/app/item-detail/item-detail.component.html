@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+
+<div class="container py-5">
+  <div class="card">
+    <div class="container-fliud">
+      <div class="wrapper row">
+        <div class="preview col-md-6">
+
+          <div class="preview-pic tab-content">
+            <div class="tab-pane active mt-3 ml-3" id="pic-1"><img [src]="detailItem[0].img" /></div>
+          </div>
+
+        </div>
+        <div class="details col-md-6">
+          <h3 class="product-title">{{detailItem[0].title}}</h3>
+          <div class="rating">
+            <div class="stars">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </div>
+            <span class="review-no">{{detailItem[0].category}}</span>
+          </div>
+          <p class="product-description">{{detailItem[0].description}}</p>
+          <h4 class="price">current price: {{detailItem[0].price | currency: 'EUR'}}</h4>
+          <div class="action">
+            <a class="nav-link" routerLink="/category/Computers">Terug</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

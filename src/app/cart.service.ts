@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Item } from '../models/item.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private items: Item[] = [];
+  public totalprice: any;
 
   constructor() { }
 
@@ -38,6 +40,14 @@ export class CartService {
     this.items = this.getCartItems();
     this.items.find(x => x._id === id).qty = parseInt(amount);
     this.updateCart();
+  }
+
+  public getTotal(): any {
+    this.totalprice = [];
+    JSON.parse(localStorage.cart).forEach(el => {
+      this.totalprice.push(el.qty * el.price);
+    });
+    return this.totalprice.reduce((a, b) => a + b, 0);
   }
 
 

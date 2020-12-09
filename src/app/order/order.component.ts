@@ -23,7 +23,7 @@ export class OrderComponent implements OnInit {
   }
 
   public addOrder(): void {
-    console.log('Function called');
+    console.log('Function called', JSON.parse(localStorage.getItem('cart')));
     this.item.addOrder({
       'orderId': this.orderId,
       'userId': this.userId,
